@@ -23,7 +23,10 @@ requirepackage(){
 #Install Required Packages  
 requirepackage git
 requirepackage curl
+requirepackage python-pip
+requirepackage python-dev
 sudo apt-get install -y build-essential
+sudo pip install socketio-client
 
 #Grab Latest Version of NodeJS
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
