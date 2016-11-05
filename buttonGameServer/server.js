@@ -22,8 +22,9 @@ function randomKey(obj) {
 
 function updateList(){
   let keysSorted = Object.keys(people).sort(function(a,b){return list[a.best]-list[b.best]})
-  io.emit('update', people, keysSorted);
-  console.log("Updated!");
+  let data = [keysSorted, people];
+  io.emit('update', data);
+  //console.log("Updated!");
 }
 
 io.on('connection', function(socket){
@@ -46,7 +47,7 @@ io.on('connection', function(socket){
     let s1 = current.getSeconds()-old.getSeconds();
     let ms1 = Math.abs(current.getMilliseconds()-old.getMilliseconds());
     var difference = Math.abs(current.getMilliseconds()-old.getMilliseconds());
-    console.log(people[socket.id].name + " pressed with "+ difference + "ms delay.");
+    //console.log(people[socket.id].name + " pressed with "+ difference + "ms delay.");
     people[socket.id].delay = difference;
     if((people[socket.id].best>difference)&&(difference>0)){
       people[socket.id].best = difference;
@@ -56,8 +57,10 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(msg){
-    console.log(people[socket.id].name + " has left the server.");
-    delete people[socket.id];
+    if(people[socket.id]){
+      console.log(people[socket.id].name + " has left the server.");
+      delete people[socket.id];
+    }
     updateList();
   });
 
