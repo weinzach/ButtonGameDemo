@@ -1,18 +1,79 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-table {
-    border-collapse: collapse;
-}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Button Latency Leaderboard</title>
 
-table, th, td {
-    border: 1px solid black;
-}
-</style>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <h1>Button Latency Leaderboard</h1>
-  <div id="table"><h3>Waiting for Clients...</h3></div>
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-  <script src="./app.js"></script>
-</body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Dashboard</a>
+
+      <ul class="right hide-on-med-and-down">
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+      </ul>
+
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Button Latency Leaderboard</h1>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 m12">
+          <div id="tabledata">
+          <table class="striped">
+                <thead>
+                  <tr>
+                      <th>Rank</th>
+                      <th >MAC Address</th>
+                      <th>Last Delay (ms)</th>
+                      <th>Best Delay (ms)</th>
+                      <th>Time of Best Delay</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Waiting on Clients...</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+    <br><br>
+
+  </div>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>

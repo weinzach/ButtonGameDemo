@@ -9,16 +9,6 @@ app.get('/', function(req, res){
 });
 
 var people = {};
-var active = false;
-
-function randomKey(obj) {
-    var ret;
-    var c = 0;
-    for (var key in obj)
-        if (Math.random() < 1/++c)
-           ret = key;
-    return key;
-}
 
 function updateList(){
   let keysSorted = Object.keys(people).sort(function(a,b){return list[a.best]-list[b.best]})
