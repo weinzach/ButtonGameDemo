@@ -5,7 +5,7 @@ from socketIO_client import SocketIO, LoggingNamespace
 from uuid import getnode as get_mac
 mac = get_mac()
 print("Your mac address is "+str(mac))
-IP = '192.168.1.100'
+IP = raw_input('Enter game server IP: ')
 print("Connecting to "+IP+"...")
 socketIO = SocketIO(IP, 3000, LoggingNamespace)
 print("Connected!")
@@ -16,7 +16,7 @@ GPIO.setup(17,GPIO.OUT)
 state = False
 
 socketIO.emit("join", str(mac))
-time.sleep(10)
+
 while True:
     input_state = GPIO.input(4)
     if (input_state != state)and(input_state==True):
