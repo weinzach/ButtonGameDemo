@@ -21,15 +21,15 @@ function randomKey(obj) {
 }
 
 function updateList(){
-  io.emit('update', people);
+  let keysSorted = Object.keys(people).sort(function(a,b){return list[a.best]-list[b.best]})
+  io.emit('update', people, keysSorted);
   console.log("Updated!");
-
 }
 
 io.on('connection', function(socket){
 
   socket.on('join', function(msg){
-    people[socket.id] = {'name':msg, 'delay':"10000",'time': "" };
+    people[socket.id] = {'name':msg, 'delay': '', 'best':"10000",'time': "" };
 		console.log(people[socket.id].name + " has joined the server.");
     updateList();
 	});
@@ -37,22 +37,6 @@ io.on('connection', function(socket){
   socket.on('update', function(msg){
     updateList();
 	});
-
-  socket.on('start', function(msg){
-    if(msg==1){
-      if(active!=true){
-        console.log("Awaiting Connections");
-        active = true;
-        runGame();
-      }
-    }
-    else if(msg==2){
-      if(active!=false){
-       active = false;
-       console.log("Connections Closed");
-     }
-    }
-  });
 
   socket.on('push', function(msg){
     var current = new Date();
@@ -63,11 +47,11 @@ io.on('connection', function(socket){
     let ms1 = Math.abs(current.getMilliseconds()-old.getMilliseconds());
     var difference = Math.abs(current.getMilliseconds()-old.getMilliseconds());
     console.log(people[socket.id].name + " pressed with "+ difference + "ms delay.");
-    if(people[socket.id].delay>difference){
-      people[socket.id].delay = difference;
+    people[socket.id].delay = difference;
+    if((people[socket.id].best>difference)&&(difference>0)){
+      people[socket.id].best = difference;
       people[socket.id].time = old.toLocaleString();
     }
-    console.log(people);
     updateList();
   });
 

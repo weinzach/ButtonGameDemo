@@ -3,14 +3,6 @@ var socket = io();
 	});
   socket.on('disconnect', function () {
 	});
-
-  socket.on('play', function (data) {
-    if(data==1){
-      var audio = new Audio('./easy.mp3');
-      audio.play();
-    }
+  socket.on('update', function (data) {
+    console.log(data);
   });
-
-function button(){
-socket.emit('message','1');
-}
