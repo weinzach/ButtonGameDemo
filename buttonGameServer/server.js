@@ -11,10 +11,10 @@ app.get('/', function(req, res){
 var people = {};
 
 function updateList(){
-  let keysSorted = Object.keys(people).sort(function(a,b){return list[a.best]-list[b.best]})
+  let keysSorted = Object.keys(people).sort(function(a,b){return people[b.best]-people[a.best]})
   let data = [keysSorted, people];
   io.emit('update', data);
-  //console.log("Updated!");
+  console.log("Updated!");
 }
 
 io.on('connection', function(socket){
@@ -30,6 +30,7 @@ io.on('connection', function(socket){
 	});
 
   socket.on('push', function(msg){
+    if(people[socket.id]){
     var current = new Date();
     var old = new Date(Math.floor(msg*1000));
     let h1   = current.getHours()-old.getHours();
@@ -37,13 +38,14 @@ io.on('connection', function(socket){
     let s1 = current.getSeconds()-old.getSeconds();
     let ms1 = Math.abs(current.getMilliseconds()-old.getMilliseconds());
     var difference = Math.abs(current.getMilliseconds()-old.getMilliseconds());
-    //console.log(people[socket.id].name + " pressed with "+ difference + "ms delay.");
+    console.log(people[socket.id].name + " pressed with "+ difference + "ms delay.");
     people[socket.id].delay = difference;
     if((people[socket.id].best>difference)&&(difference>0)){
       people[socket.id].best = difference;
       people[socket.id].time = old.toLocaleString();
     }
     updateList();
+	}
   });
 
   socket.on('disconnect', function(msg){

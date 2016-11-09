@@ -1,6 +1,6 @@
 var socket = io();
   socket.on('update', function (data) {
-    let table = "<table class="striped">><thead>";
+    let table = '<table class="striped"><thead>';
     table += "<tr>";
     table += "<th>Rank</th>";
     table += "<th>MAC Address</th>";
@@ -19,5 +19,5 @@ var socket = io();
       table += "</tr>";
     }
     table += "</tbody></table>"
-    document.getElementById("table").innerHTML = table;
+    document.getElementById("tabledata").innerHTML = table;
   });
