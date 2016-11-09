@@ -10,7 +10,7 @@ var socket = io();
     table += "</tr></thead><tbody>";
     for (var i in data[0]) {
       table += "<tr>";
-      let j = i+1;
+      let j = parseInt(parseInt(i)+parseInt(1));
       table += "<td>"+j+"</td>";
       table += "<td>"+data[1][data[0][i]].name+"</td>";
       table += "<td>"+data[1][data[0][i]].delay+"</td>";

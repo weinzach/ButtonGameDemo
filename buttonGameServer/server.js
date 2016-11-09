@@ -11,8 +11,25 @@ app.get('/', function(req, res){
 var people = {};
 
 function updateList(){
-  let keysSorted = Object.keys(people).sort(function(a,b){return people[b.best]-people[a.best]})
-  let data = [keysSorted, people];
+   let keysSorted = Object.keys(people);
+   let bests = [];
+   for (i = 0; i < keysSorted.length; i++) { 
+	if(people[keysSorted[i]].best){
+    		bests.push(people[keysSorted[i]].best);
+	}
+   }
+  bests = bests.sort(function(a, b){return a-b});
+  let sorted = [];
+  for (i = 0; i < bests.length; i++) { 
+	for (j = 0; j < keysSorted.length; j++) { 
+		if(people[keysSorted[j]].best){
+		if(people[keysSorted[j]].best==bests[i]){
+			sorted.push(keysSorted[j]);
+			keysSorted.splice(j, 1);
+		}}
+ 	 }
+   }
+  let data = [sorted, people];
   io.emit('update', data);
   console.log("Updated!");
 }
@@ -20,7 +37,7 @@ function updateList(){
 io.on('connection', function(socket){
 
   socket.on('join', function(msg){
-    people[socket.id] = {'name':msg, 'delay': '', 'best':"10000",'time': "" };
+    people[socket.id] = {'name':msg, 'delay': '', 'best': 10000,'time': "" };
 		console.log(people[socket.id].name + " has joined the server.");
     updateList();
 	});
